@@ -4,12 +4,17 @@
             <div class="card-body text-center p-0">
                 <div class="mb-3">
                     <div class="owl-carousel owl-theme">
-                        @foreach ($row->galeriGambars as $galeriGambars)
+                        @forelse ($row->galeriGambars as $galeriGambars)
                             <div class="item">
                                 <img src="/storage/galeri/gambar/{{ $galeriGambars->gambar }}" class="img-fluid-custom"
                                     alt="{{ $row->nama }}">
                             </div>
-                        @endforeach
+                        @empty
+                            <div class="item">
+                                <img src="{{ asset('frontend/assets/tidakada.jpg') }}" class="img-fluid-custom"
+                                    alt="{{ $row->nama }}">
+                            </div>
+                        @endforelse
                     </div>
                 </div>
                 <p class="card-title fw-bold">{{ $row->nama }}</p>

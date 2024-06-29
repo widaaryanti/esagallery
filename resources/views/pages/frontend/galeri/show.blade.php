@@ -16,12 +16,18 @@
                 </div>
             </div>
             <div class="row" id="galeri">
-                @foreach ($galeri->galeriGambars as $galeriGambars)
+                @forelse ($galeri->galeriGambars as $galeriGambars)
                     <div class="col-lg-4 col-md-6 col-12">
                         <img src="/storage/galeri/gambar/{{ $galeriGambars->gambar }}" class="img-fluid-custom"
                             alt="{{ $galeri->nama }}">
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-12">
+                        <div class="text-center my-5 py-5">
+                            <div class="fw-semibold">Galeri Tidak Ditemukan</div>
+                        </div>
+                    </div>
+                @endforelse
             </div>
         </div>
     </header>

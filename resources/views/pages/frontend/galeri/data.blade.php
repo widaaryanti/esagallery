@@ -18,8 +18,9 @@
                     </div>
                 </div>
                 <p class="card-title fw-bold">{{ $row->nama }}</p>
-                <small>{{ formatTanggal($row->tanggal_mulai, 'd F Y') . ' - ' . formatTanggal($row->tanggal_selesai, 'd F Y') }}</small>
-                <p>{{ $row->deskripsi }}</p>
+                <div class="mb-3">
+                    <small>{{ formatTanggal($row->tanggal_mulai, 'd F Y') . ' - ' . formatTanggal($row->tanggal_selesai, 'd F Y') }}</small>
+                </div>
             </div>
         </a>
     </div>

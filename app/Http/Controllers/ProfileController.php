@@ -37,7 +37,7 @@ class ProfileController extends Controller
             return $this->successResponse($user, 'Data Profil diubah.');
         }
 
-        return view('pages.frontend.profile');
+        return view('pages.frontend.profile.index');
     }
 
     public function updatePassword(Request $request)

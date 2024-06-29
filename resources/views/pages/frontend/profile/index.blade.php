@@ -9,11 +9,11 @@
 @section('main')
     <header class="py-5 min-vh-100">
         <div class="container">
-            <div class="row align-items-center">
+            <div class="row">
                 <div class="col-lg-6 mb-3">
                     <div class="card mb-3">
                         <div class="card-header">
-                            <h4 class="text-dark">Data @yield('title')</h4>
+                            <h5 class="text-dark">Data @yield('title')</h5>
                         </div>
                         <div class="card-body">
                             <form id="updateData">
@@ -50,9 +50,11 @@
                             </form>
                         </div>
                     </div>
+                </div>
+                <div class="col-lg-6 mb-3">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="text-dark">Ubah Password</h4>
+                            <h5 class="text-dark">Ubah Password</h5>
                         </div>
                         <div class="card-body">
                             <form id="updatePassword">

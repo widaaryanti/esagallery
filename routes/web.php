@@ -1,26 +1,28 @@
 <?php
 
-use App\Http\Controllers\Admin\BarangController;
-use App\Http\Controllers\Admin\BarangGambarController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
-use App\Http\Controllers\Admin\GaleriGambarController;
-use App\Http\Controllers\Admin\KategoriController;
-use App\Http\Controllers\Admin\PengaturanController;
-use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
-use App\Http\Controllers\Admin\UserController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\BarangController;
+use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TentangController;
-use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\PengaturanController;
+use App\Http\Controllers\Admin\BarangGambarController;
+use App\Http\Controllers\Admin\GaleriGambarController;
+use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('tentang', [TentangController::class, 'index'])->name('tentang');
 Route::get('galeri', [GaleriController::class, 'index'])->name('galeri');
 Route::get('galeri/{id}', [GaleriController::class, 'show']);
+Route::get('barang', [BarangController::class, 'index'])->name('barang');
+Route::get('barang/{id}', [BarangController::class, 'show']);
 
 Route::match(['get', 'post'], 'login', [AuthController::class, 'login'])->name('login');
 Route::match(['get', 'post'], 'register', [AuthController::class, 'register'])->name('register');

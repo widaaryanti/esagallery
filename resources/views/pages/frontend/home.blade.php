@@ -6,16 +6,16 @@
 @endpush
 
 @section('main')
-    <header class="bg-home" style="background-image: url({{ asset('frontend/assets/background-home.png') }}); ">
+    <header class="bg-home" style="background-image: url({{ asset('frontend/assets/bg.jpg') }}); ">
         <div class="bg-dark bg-opacity-25">
             <div class="container">
                 <div class="row align-items-center" style="height: 90vh">
                     <div class="col-lg-6  py-3 text-center text-lg-start">
                         <h1 class="text-shadow mb-2 fw-bolder text-esa-secondary">
-                            The Best Service Transport
+                            Desain Interior, Furniture
                         </h1>
                         <h1 class="text-shadow mb-3 fw-bolder text-esa-secondary">
-                            and Logistic Partner
+                            dan Konstruksi
                         </h1>
                         <p class="text-shadow text-white fw-semibold">
                             We Deliver Your Stuff Safety And Fast

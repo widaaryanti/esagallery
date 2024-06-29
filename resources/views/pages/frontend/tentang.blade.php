@@ -19,7 +19,7 @@
                         </div>
                         <div class="mb-2 d-flex align-items-center">
                             <i class="bi bi-telephone-fill  me-3"></i>
-                            <span>{{ pengaturan()->no_hp }}</span>
+                                <span>{{ pengaturan()->no_hp }}</span>
                         </div>
                         <div class="mb-2 d-flex align-items-start">
                             <i class="bi bi-geo-alt-fill  me-3"></i>

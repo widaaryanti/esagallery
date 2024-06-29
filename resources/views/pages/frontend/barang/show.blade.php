@@ -1,6 +1,6 @@
 @extends('layouts.frontend')
 
-@section('title', 'barang')
+@section('title', 'Barang')
 
 @push('style')
 @endpush

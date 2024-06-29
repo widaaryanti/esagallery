@@ -48,6 +48,7 @@
                                             <th width="5%">#</th>
                                             <th>Nama</th>
                                             <th>Email</th>
+                                            <th>Role</th>
                                             <th>No HP</th>
                                             <th>Alamat</th>
                                             <th width="15%">Aksi</th>
@@ -85,6 +86,10 @@
                     name: 'email'
                 },
                 {
+                    data: 'role',
+                    name: 'role'
+                },
+                {
                     data: 'no_hp',
                     name: 'no_hp'
                 },
@@ -117,7 +122,7 @@
 
                 const errorCallback = function(error) {
                     setButtonLoadingState("#saveData .btn.btn-primary", false);
-                    handleValidationErrors(error, "saveData", ["nama", "email", "password", "no_hp", "alamat"]);
+                    handleValidationErrors(error, "saveData", ["nama", "email", "password", "no_hp", "alamat", "role"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

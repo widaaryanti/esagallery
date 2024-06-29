@@ -28,8 +28,17 @@
                     <div class="form-group mb-3">
                         <label for="password_confirmation" class="form-label">Konfirmasi Password <span
                                 class="text-danger">*</span></label>
-                        <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        <input type="password" class="form-control" id="password_confirmation"
+                            name="password_confirmation">
                         <small class="invalid-feedback" id="errorpassword_confirmation"></small>
+                    </div>
+                    <div class="form-group mb-3">
+                        <label for="role" class="form-label">Role <span class="text-danger"></label>
+                        <select class="form-control" id="role" name="role">
+                            <option value="">Pilih Role</option>
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                        </select>
                     </div>
                     <div class="form-group mb-3">
                         <label for="no_hp" class="form-label">No HP <span class="text-danger">*</span></label>

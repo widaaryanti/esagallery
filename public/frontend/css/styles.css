@@ -13727,34 +13727,34 @@ html {
 
 .bg-esa-primary {
     --bs-bg-opacity: 1;
-    background-color: rgba(107,108,108, var(--bs-bg-opacity)) !important;
+    background-color: rgba(107, 108, 108, var(--bs-bg-opacity)) !important;
 }
 
 .bg-esa-secondary {
     --bs-bg-opacity: 1;
-    background-color: rgba(131,12,4, var(--bs-bg-opacity)) !important;
+    background-color: rgba(131, 12, 4, var(--bs-bg-opacity)) !important;
 }
 
 .border-esa-primary {
     --bs-bg-opacity: 1;
-    border-color: rgba(107,108,108, var(--bs-bg-opacity)) !important;
+    border-color: rgba(107, 108, 108, var(--bs-bg-opacity)) !important;
     border-width: 3px;
 }
 
 .border-esa-secondary {
     --bs-bg-opacity: 1;
-    border-color: rgba(131,12,4, var(--bs-bg-opacity)) !important;
+    border-color: rgba(131, 12, 4, var(--bs-bg-opacity)) !important;
     border-width: 3px;
 }
 
 .text-esa-primary {
     --bs-bg-opacity: 1;
-    color: rgba(107,108,108, var(--bs-bg-opacity)) !important;
+    color: rgba(107, 108, 108, var(--bs-bg-opacity)) !important;
 }
 
 .text-esa-secondary {
     --bs-bg-opacity: 1;
-    color: rgba(131,12,4, var(--bs-bg-opacity)) !important;
+    color: rgba(131, 12, 4, var(--bs-bg-opacity)) !important;
 }
 
 .bg-home {
@@ -13892,7 +13892,7 @@ html {
     --bs-btn-hover-color: #fff;
     --bs-btn-hover-bg: #348ec1;
     --bs-btn-hover-border-color: #3481cd;
-    --bs-btn-focus-shadow: 0 0 0 0.25rem rgba(107,108,108, 0.5);
+    --bs-btn-focus-shadow: 0 0 0 0.25rem rgba(107, 108, 108, 0.5);
     --bs-btn-active-color: #fff;
     --bs-btn-active-bg: #3481cd;
     --bs-btn-active-border-color: #348ec1;
@@ -13900,4 +13900,11 @@ html {
     --bs-btn-disabled-color: #fff;
     --bs-btn-disabled-bg: #348ecd;
     --bs-btn-disabled-border-color: #348ecd;
+}
+
+
+.img-fluid-custom {
+    max-width: 100%;
+    height: 200px;
+    object-fit: cover;
 }

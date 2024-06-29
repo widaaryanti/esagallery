@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Galeri;
-use App\Models\Kategori;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -24,7 +23,7 @@ class GaleriController extends Controller
                         $detailButton = '<a class="btn btn-sm btn-info me-1 d-inline-flex" href="/admin/galeri/' . $galeri->id . '"><i class="bi bi-info-circle me-1"></i>Detail</a>';
                         $editButton = '<button class="btn btn-sm btn-warning me-1 d-inline-flex" onclick="getModal(`createModal`, `/admin/galeri/' . $galeri->id . '`, [`id`, `nama`, `tanggal_mulai`, `tanggal_selesai`, `deskripsi`])"><i class="bi bi-pencil-square me-1"></i>Edit</button>';
                         $deleteButton = '<button class="btn btn-sm btn-danger d-inline-flex" onclick="confirmDelete(`/admin/galeri/' . $galeri->id . '`, `galeri-table`)"><i class="bi bi-trash me-1"></i>Hapus</button>';
-                        return $detailButton .$editButton . $deleteButton;
+                        return $detailButton . $editButton . $deleteButton;
                     })
                     ->addColumn('tanggal_mulai', function ($galeri) {
                         return formatTanggal($galeri->tanggal_mulai, 'd F Y');
@@ -63,15 +62,15 @@ class GaleriController extends Controller
     public function show(Request $request, $id)
     {
         if ($request->ajax()) {
-            $galeri = Galeri::with('kategori')->find($id);
-            
+            $galeri = Galeri::find($id);
+
             if (!$galeri) {
                 return $this->errorResponse(null, 'Data Galeri tidak ditemukan.', 404);
             }
-            
+
             return $this->successResponse($galeri, 'Data Galeri ditemukan.');
         }
-        
+
         $galeri = Galeri::find($id);
         return view('pages.admin.galeri.show', compact('galeri'));
     }

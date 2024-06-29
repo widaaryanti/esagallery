@@ -22,11 +22,11 @@
                         href="/tentang">Tentang</a>
                 </li>
                 <li class="nav-item"><a
-                        class="nav-link ms-lg-3 text-center text-lg-start {{ Request::is('galeri') ? 'text-esa-secondary fw-bold border-bottom border-esa-secondary border-3' : '' }}"
+                        class="nav-link ms-lg-3 text-center text-lg-start {{ Request::is('galeri') || Request::is('galeri/*') ? 'text-esa-secondary fw-bold border-bottom border-esa-secondary border-3' : '' }}"
                         href="/galeri">Galeri</a>
                 </li>
                 <li class="nav-item"><a
-                        class="nav-link ms-lg-3 text-center text-lg-start {{ Request::is('barang') ? 'text-esa-secondary fw-bold border-bottom border-esa-secondary border-3' : '' }}"
+                        class="nav-link ms-lg-3 text-center text-lg-start {{ Request::is('barang') || Request::is('barang/*') ? 'text-esa-secondary fw-bold border-bottom border-esa-secondary border-3' : '' }}"
                         href="/barang">Barang</a>
                 </li>
                 @auth
@@ -42,6 +42,6 @@
                 @else
                     <a href="/login" class="btn bg-esa-secondary text-white fw-semibold shadow-0 btn-sm px-3">Login</a>
                 @endauth
-            </div>            
-    </div>
+            </div>
+        </div>
 </nav>

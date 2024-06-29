@@ -32,12 +32,15 @@
                                     <small class="invalid-feedback" id="erroremail"></small>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="no_hp" class="form-label">No HP <span class="text-danger">*</span></label>
-                                    <input type="text" class="form-control" value="{{ auth()->user()->no_hp }}" id="no_hp" name="no_hp">
+                                    <label for="no_hp" class="form-label">No HP <span
+                                            class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" value="{{ auth()->user()->no_hp }}"
+                                        id="no_hp" name="no_hp">
                                     <small class="invalid-feedback" id="errorno_hp"></small>
                                 </div>
                                 <div class="form-group mb-3">
-                                    <label for="alamat" class="form-label">Alamat <span class="text-danger">*</span></label>
+                                    <label for="alamat" class="form-label">Alamat <span
+                                            class="text-danger">*</span></label>
                                     <textarea type="text" class="form-control" id="alamat" rows="4" name="alamat">{{ auth()->user()->alamat }}</textarea>
                                     <small class="invalid-feedback" id="erroralamat"></small>
                                 </div>

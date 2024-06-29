@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -19,7 +19,7 @@ class ProfileController extends Controller
                 'nama' => 'required',
                 'email' => 'required|email|unique:users,email,' . auth()->user()->id,
                 'no_hp' => 'required',
-                'alamat' => 'required'
+                'alamat' => 'required',
             ]);
 
             if ($validator->fails()) {

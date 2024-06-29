@@ -6,6 +6,8 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <title>@yield('title') - {{ config('app.name') }}</title>
+    <meta name="description"
+        content="Esa Gallery menyediakan solusi desain interior, furniture, dan kontraktor yang andal dan efisien untuk kebutuhan proyek Anda.">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="{{ asset('admin/compiled/svg/favicon.svg') }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset('admin/compiled/css/app.css') }}">

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pengaturan;
-use Illuminate\Http\Request;
-
 class HomeController extends Controller
 {
-    public function tentang()
+    public function index()
     {
-        return view('pages.frontend.tentang');
+        return view('pages.frontend.home.index');
+    }
+
+    public function galeri()
+    {
+        return view('pages.frontend.galeri');
     }
 }

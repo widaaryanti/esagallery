@@ -1,21 +1,22 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\Admin\BarangController as AdminBarangController;
+use App\Http\Controllers\Admin\BarangGambarController;
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
+use App\Http\Controllers\Admin\GaleriGambarController;
+use App\Http\Controllers\Admin\KategoriController;
+use App\Http\Controllers\Admin\PengaturanController;
+use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\GaleriController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TentangController;
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\KategoriController;
-use App\Http\Controllers\Admin\DashboardController;
-use App\Http\Controllers\Admin\PengaturanController;
-use App\Http\Controllers\Admin\BarangGambarController;
-use App\Http\Controllers\Admin\GaleriGambarController;
-use App\Http\Controllers\Admin\GaleriController as AdminGaleriController;
-use App\Http\Controllers\Admin\ProfileController as AdminProfileController;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('tentang', [TentangController::class, 'index'])->name('tentang');
@@ -34,7 +35,7 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('admin')->name('admin.')-
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::resource('user', UserController::class)->names('user');
     Route::resource('kategori', KategoriController::class)->names('kategori');
-    Route::resource('barang', BarangController::class)->names('barang');
+    Route::resource('barang', AdminBarangController::class)->names('barang');
     Route::resource('barang-gambar', BarangGambarController::class)->names('barang-gambar');
     Route::resource('galeri', AdminGaleriController::class)->names('galeri');
     Route::resource('galeri-gambar', GaleriGambarController::class)->names('galeri-gambar');

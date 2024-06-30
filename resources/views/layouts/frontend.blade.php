@@ -24,7 +24,7 @@
     <div id="arrowButton" class="me-lg-5 visible">
         <div class="d-flex flex-column gap-2">
             <a
-                href="https://api.whatsapp.com/send?phone=6282281018776&text=Salam%20PT.%20esa%20Logistik%2C%20saya%20ingin%20berkonsultasi%20mengenai%20pengiriman%20barang.%20Terima%20kasih.">
+                href="https://api.whatsapp.com/send?phone=6282126056028&text=Salam%20PT.%20esa%20Logistik%2C%20saya%20ingin%20berkonsultasi%20mengenai%20pengiriman%20barang.%20Terima%20kasih.">
                 <img src="{{ asset('frontend/assets/whatsapp.svg') }}" width="50px"
                     alt="icon whatsapp">
             </a>

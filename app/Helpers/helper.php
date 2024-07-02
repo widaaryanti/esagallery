@@ -1,7 +1,8 @@
 <?php
 
-use Carbon\Carbon;
 use App\Models\Pengaturan;
+use App\Models\Transaksi;
+use Carbon\Carbon;
 
 if (!function_exists('formatTanggal')) {
     function formatTanggal($tanggal = null, $format = 'l, j F Y')
@@ -22,5 +23,38 @@ if (!function_exists('pengaturan')) {
     function pengaturan()
     {
         return Pengaturan::find(1);
+    }
+}
+
+if (!function_exists('getKodeTransaksi')) {
+    function getKodeTransaksi()
+    {
+        do {
+            $kode = 'ESA-' . date('ymd') . '-' . rand(1000000, 9999999);
+            $count = Transaksi::where('kode_transaksi', $kode)->count();
+        } while ($count > 0);
+
+        return $kode;
+
+    }
+}
+
+if (!function_exists('bulan')) {
+    function bulan()
+    {
+        return [
+            'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember',
+        ];
     }
 }

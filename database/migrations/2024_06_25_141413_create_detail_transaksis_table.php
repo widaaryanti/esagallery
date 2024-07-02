@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('transaksi_id')->nullable()->constrained();
             $table->foreignId('barang_id')->constrained();
-            $table->foreignId('chart_id')->nullable()->constrained();
+            $table->unsignedBigInteger('cart_id')->nullable();
             $table->integer('quantity');
             $table->integer('jumlah');
             $table->timestamps();

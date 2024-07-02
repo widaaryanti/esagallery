@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('users_id')->constrained();
-            $table->string('kode_tranasaksi')->unique();
+            $table->foreignId('user_id')->constrained();
+            $table->string('kode_transaksi')->unique();
             $table->integer('total');
             $table->enum('status', ['pending', 'disetujui', 'ditolak']);
             $table->timestamps();

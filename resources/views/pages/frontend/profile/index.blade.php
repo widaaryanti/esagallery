@@ -12,10 +12,9 @@
             <div class="row">
                 <div class="col-lg-6 mb-3">
                     <div class="card mb-3">
-                        <div class="card-header">
-                            <h5 class="text-dark">Data @yield('title')</h5>
-                        </div>
                         <div class="card-body">
+                            <h5 class="text-dark mb-3">Data @yield('title')</h5>
+                            <hr>
                             <form id="updateData">
                                 @method('PUT')
                                 <div class="form-group mb-3">
@@ -53,10 +52,9 @@
                 </div>
                 <div class="col-lg-6 mb-3">
                     <div class="card">
-                        <div class="card-header">
-                            <h5 class="text-dark">Ubah Password</h5>
-                        </div>
                         <div class="card-body">
+                            <h5 class="text-dark mb-3">Ubah Password</h5>
+                            <hr>
                             <form id="updatePassword">
                                 @method('PUT')
                                 <div class="form-group mb-3">

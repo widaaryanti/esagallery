@@ -224,3 +224,22 @@ const formatRupiah = (angka) => {
     ribuan = ribuan.join(".").split("").reverse().join("");
     return "Rp " + ribuan;
 };
+
+const addCart = ($kode) => {
+    const url = `/cart`;
+    const data = new FormData();
+    data.append("barang", $kode);
+
+    const successCallback = function (response) {
+        const cart = $("#cart");
+        cart.empty();
+        cart.text(response.data.count);
+        notification("success", response.message);
+    };
+
+    const errorCallback = function (error) {
+        notification("error", error.responseJSON.message);
+    };
+
+    ajaxCall(url, "POST", data, successCallback, errorCallback);
+};

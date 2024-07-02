@@ -35,7 +35,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title mb-0">Data @yield('title')</h5>
                                 <a id="downloadPdf" class="btn btn-sm btn-danger" target="_blank"><i
-                                        class="bi bi-file-pdf me-2"></i>Pdf</a>
+                                        class="bi bi-file-pdf me-2"></i>Laporan</a>
                             </div>
                             <hr>
                             <div class="row mb-3">

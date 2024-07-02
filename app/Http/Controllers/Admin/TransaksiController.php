@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use PDF;
+use Carbon\Carbon;
+use Midtrans\Config;
 use App\Models\Transaksi;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
-use PDF;
+use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiController extends Controller
@@ -57,4 +59,31 @@ class TransaksiController extends Controller
 
         return view('pages.admin.transaksi.index');
     }
+
+    public function updateStatus(Request $request)
+    {
+        Config::$serverKey = config('services.midtrans.serverKey');
+        Config::$isProduction = config('services.midtrans.isProduction');
+        Config::$isSanitized = config('services.midtrans.isSanitized');
+        Config::$is3ds = config('services.midtrans.is3ds');
+    
+        $twentyFourHoursAgo = Carbon::now()->subHours(24);
+    
+        $transactions = Transaksi::where('status', 'pending')
+                                 ->where('created_at', '>=', $twentyFourHoursAgo)
+                                 ->get();
+    
+        foreach ($transactions as $transaction) {
+            $responseData = \Midtrans\Transaction::status($transaction->kode_transaksi);
+    
+            if ($responseData['transaction_status'] == 'settlement') {
+                $transaction->update([
+                    'status' => 'disetujui',
+                ]);
+            }
+        }
+
+        return $this->successResponse(null, 'Status transaksi diupdate.');
+    }
+    
 }

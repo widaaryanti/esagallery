@@ -34,8 +34,11 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title mb-0">Data @yield('title')</h5>
-                                <a id="downloadPdf" class="btn btn-sm btn-danger" target="_blank"><i
+                                <div>
+                                    <button class="btn btn-warning btn-sm" onclick="updateStatus()">Update</button>
+                                    <a id="downloadPdf" class="btn btn-sm btn-danger" target="_blank"><i
                                         class="bi bi-file-pdf me-2"></i>Laporan</a>
+                                </div>
                             </div>
                             <hr>
                             <div class="row mb-3">
@@ -123,7 +126,6 @@
             ]);
 
             $("#bulan_filter, #tahun_filter").on("change", function() {
-                $("#transaksi-table").DataTable().ajax.reload();
                 renderData();
             });
         });
@@ -132,6 +134,22 @@
             const downloadPdf =
                 `/admin/transaksi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
             $("#downloadPdf").attr("href", downloadPdf);
+        }
+
+        const updateStatus = () => {
+            const url = "{{ route('admin.transaksi.status') }}";
+
+            const successCallback = function(response) {
+                $("#transaksi-table").DataTable().ajax.reload();
+                handleSuccess(response.message, null, null, "no");
+            };
+
+            const errorCallback = function(error) {
+                $("#transaksi-table").DataTable().ajax.reload();
+                handleValidationErrors(error, "payMidtrans");
+            };
+
+            ajaxCall(url, "POST", null, successCallback, errorCallback);
         }
     </script>
 @endpush

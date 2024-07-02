@@ -47,7 +47,9 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('admin')->name('admin.')-
     Route::resource('barang-gambar', BarangGambarController::class)->names('barang-gambar');
     Route::resource('galeri', AdminGaleriController::class)->names('galeri');
     Route::resource('galeri-gambar', GaleriGambarController::class)->names('galeri-gambar');
+    Route::post('transaksi/status', [AdminTransaksiController::class, 'updateStatus'])->name('transaksi.status');
     Route::resource('transaksi', AdminTransaksiController::class)->names('transaksi');
+
 
     Route::match(['get', 'put'], 'profile', [AdminProfileController::class, 'index'])->name('profile');
     Route::match(['get', 'put'], 'pengaturan', [PengaturanController::class, 'index'])->name('pengaturan');

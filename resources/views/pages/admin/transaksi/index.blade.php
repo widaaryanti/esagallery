@@ -34,6 +34,8 @@
                         <div class="card-body">
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title mb-0">Data @yield('title')</h5>
+                                <a id="downloadPdf" class="btn btn-sm btn-danger" target="_blank"><i
+                                        class="bi bi-file-pdf me-2"></i>Pdf</a>
                             </div>
                             <hr>
                             <div class="row mb-3">
@@ -69,9 +71,9 @@
                                             <th width="5%">#</th>
                                             <th>Tanggal</th>
                                             <th>Kode Transaksi</th>
-                                            <th>Total</th>
-                                            <th>Status</th>
                                             <th>Customer</th>
+                                            <th>Status</th>
+                                            <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -92,6 +94,8 @@
     <script src="{{ asset('admin/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+            renderData();
+
             datatableCall('transaksi-table', '{{ route('admin.transaksi.index') }}', [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
@@ -105,22 +109,29 @@
                     name: 'kode_transaksi'
                 },
                 {
-                    data: 'total',
-                    name: 'total'
+                    data: 'customer',
+                    name: 'customer'
                 },
                 {
                     data: 'status',
                     name: 'status'
                 },
                 {
-                    data: 'customer',
-                    name: 'customer'
-                }
+                    data: 'total',
+                    name: 'total'
+                },
             ]);
 
             $("#bulan_filter, #tahun_filter").on("change", function() {
                 $("#transaksi-table").DataTable().ajax.reload();
+                renderData();
             });
         });
+
+        const renderData = () => {
+            const downloadPdf =
+                `/admin/transaksi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            $("#downloadPdf").attr("href", downloadPdf);
+        }
     </script>
 @endpush

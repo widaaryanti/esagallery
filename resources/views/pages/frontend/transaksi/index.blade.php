@@ -21,16 +21,16 @@
                                         <th width="5%">#</th>
                                         <th>Tanggal</th>
                                         <th>Kode Trasansksi</th>
-                                        <th>Total</th>
                                         <th>Status</th>
+                                        <th>Total</th>
                                     </tr>
                                     @forelse ($transaksi as $row)
                                         <tr>
                                             <td class="text-center">{{ $loop->iteration }}</td>
                                             <td>{{ formatTanggal($row->created_at) }}</td>
                                             <td>{{ $row->kode_transaksi }}</td>
-                                            <td>{{ formatRupiah($row->total) }}</td>
                                             <td>{{ $row->status }}</td>
+                                            <td>{{ formatRupiah($row->total) }}</td>
                                         </tr>
                                     @empty
                                         <tr>

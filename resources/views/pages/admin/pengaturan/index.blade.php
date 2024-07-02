@@ -104,5 +104,7 @@
                 ajaxCall(url, "POST", data, successCallback, errorCallback);
             });
         });
+
+        
     </script>
 @endpush

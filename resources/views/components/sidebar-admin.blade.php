@@ -1,4 +1,4 @@
-36<div id="sidebar">
+<div id="sidebar">
     <div class="sidebar-wrapper active">
         <div class="container text-center mt-4">
             <a href="/admin">

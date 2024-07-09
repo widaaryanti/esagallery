@@ -19,7 +19,7 @@
                                 <thead>
                                     <tr class="text-center bg-esa-secondary text-white">
                                         <th width="5%">#</th>
-                                        <th width="50%">Produk</th>
+                                        <th width="30%">Produk</th>
                                         <th width="15%">Harga</th>
                                         <th width="15%">Quantity</th>
                                         <th width="15%">Total</th>

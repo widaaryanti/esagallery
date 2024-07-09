@@ -12,14 +12,13 @@
                 <div class="row align-items-center" style="height: 90vh">
                     <div class="col-lg-6  py-3 text-center text-lg-start">
                         <h1 class="fs-1 text-shadow mb-2 fw-bolder text-white">
-                            Desain Interior, Furniture
+                            Design Interior, Furniture
                         </h1>
                         <h1 class="text-shadow mb-3 fw-bolder text-white">
-                            dan Konstruksi
+                            dan Construction
                         </h1>
                         <p class="text-shadow text-white fw-semibold">
-                            Elevate Your Space with Safety and Speed. Interior Design Solutions, Delivered Swiftly
-
+                            Your Partner in Construction, Interior & Exterior Design, Landscaping, Rock Features, Furniture, and Pool Design
                         </p>
                     </div>
                 </div>

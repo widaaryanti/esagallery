@@ -31,7 +31,7 @@
                 </li>
                 @auth
                     <li class="nav-item"><a
-                            class="nav-link ms-lg-3 text-center text-lg-start {{ Request::is('transaksi') ? 'text-esa-secondary fw-bold border-bottom border-esa-secondary border-3' : '' }}"
+                            class="nav-link ms-lg-3 text-center text-lg-start {{ Request::is('transaksi') || Request::is('transaksi/*') ? 'text-esa-secondary fw-bold border-bottom border-esa-secondary border-3' : '' }}"
                             href="/transaksi">Transaksi</a>
                     </li>
                     <li class="nav-item">
@@ -42,7 +42,7 @@
                             <span
                                 class="position-absolute top-0 start-100 translate-middle p-1 badge rounded-pill bg-danger"
                                 style="font-size: 0.6rem; padding: 0.2em 0.4em;" id="cart">
-                                0
+                                {{ auth()->user()->carts->count() }}
                             </span>
                         </a>
                     </li>

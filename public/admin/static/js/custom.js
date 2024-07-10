@@ -180,6 +180,52 @@ const confirmDelete = (url, tableId) => {
     });
 };
 
+const confirmDeleteCart = (url, tableId) => {
+    Swal.fire({
+        title: "Apakah Kamu Yakin?",
+        text: "Ingin menghapus data ini!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya",
+        cancelButtonText: "Tidak",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const data = null;
+
+            const successCallback = function (response) {
+                getTotalCart();
+                handleSuccess(response, tableId, null);
+            };
+
+            const errorCallback = function (error) {
+                console.log(error);
+            };
+
+            ajaxCall(url, "DELETE", data, successCallback, errorCallback);
+        }
+    });
+};
+
+const getTotalCart = () => {
+    const successCallback = function (response) {
+        $("#total-harga").text(response.data.total);
+        $("#total-bayar").text(response.data.total);
+        $("#cart").text(response.data.count);
+        if(response.data.count == 0){
+            $("#payMidtrans").hide();
+        }
+
+    };
+
+    const errorCallback = function (error) {
+        console.error(error);
+    };
+
+    ajaxCall("/cart", "GET", null, successCallback, errorCallback);
+};
+
 const select2ToJson = (selector, url, no = null) => {
     const selectElem = $(selector);
 

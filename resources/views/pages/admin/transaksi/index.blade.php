@@ -35,9 +35,8 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <h5 class="card-title mb-0">Data @yield('title')</h5>
                                 <div>
-                                    <button class="btn btn-warning btn-sm" onclick="updateStatus()">Update</button>
                                     <a id="downloadPdf" class="btn btn-sm btn-danger" target="_blank"><i
-                                        class="bi bi-file-pdf me-2"></i>Laporan</a>
+                                            class="bi bi-file-pdf me-2"></i>Laporan</a>
                                 </div>
                             </div>
                             <hr>
@@ -77,6 +76,7 @@
                                             <th>Customer</th>
                                             <th>Status</th>
                                             <th>Total</th>
+                                            <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -123,6 +123,10 @@
                     data: 'total',
                     name: 'total'
                 },
+                {
+                    data: 'aksi',
+                    name: 'aksi'
+                },
             ]);
 
             $("#bulan_filter, #tahun_filter").on("change", function() {
@@ -134,22 +138,6 @@
             const downloadPdf =
                 `/admin/transaksi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
             $("#downloadPdf").attr("href", downloadPdf);
-        }
-
-        const updateStatus = () => {
-            const url = "{{ route('admin.transaksi.status') }}";
-
-            const successCallback = function(response) {
-                $("#transaksi-table").DataTable().ajax.reload();
-                handleSuccess(response.message, null, null, "no");
-            };
-
-            const errorCallback = function(error) {
-                $("#transaksi-table").DataTable().ajax.reload();
-                handleValidationErrors(error, "payMidtrans");
-            };
-
-            ajaxCall(url, "POST", null, successCallback, errorCallback);
         }
     </script>
 @endpush

@@ -8,56 +8,39 @@ use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
 use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Midtrans\Config;
 use Midtrans\Snap;
+use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiController extends Controller
 {
     use ApiResponder;
 
-    public function cart()
+    public function index(Request $request)
     {
-        $cart = DetailTransaksi::where('cart_id', auth()->user()->id)->whereNull('transaksi_id')->get();
-        return view('pages.frontend.transaksi.cart', compact('cart'));
-    }
-    public function addCart(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'barang' => 'required|exists:barangs,id',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(), 'Data tidak valid.', 422);
+        $transaksis = Transaksi::with('user')->where('user_id', auth()->user()->id)->latest()->get();
+        if ($request->ajax()) {
+            if ($request->mode == "datatable") {
+                return DataTables::of($transaksis)
+                    ->addColumn('total', function ($transaksi) {
+                        return formatRupiah($transaksi->total);
+                    })
+                    ->addColumn('tanggal', function ($transaksi) {
+                        return formatTanggal($transaksi->created_at);
+                    })
+                    ->addColumn('status', function ($transaksi) {
+                        return formatStatusLabel($transaksi->status);
+                    })
+                    ->addColumn('aksi', function ($transaksi) {
+                        $detailButton = '<a class="btn btn-sm btn-info me-1 d-inline-flex" href="/transaksi/' . $transaksi->id . '"><i class="bi bi-info-circle me-1"></i>Detail</a>';
+                        return $detailButton;
+                    })
+                    ->addIndexColumn()
+                    ->rawColumns(['total', 'tanggal', 'status', 'aksi'])
+                    ->make(true);
+            }
         }
-
-        $barang = Barang::find($request->barang);
-        $cart = DetailTransaksi::where('barang_id', $request->barang)->whereNull('transaksi_id')->where('cart_id', auth()->user()->id)->first();
-
-        if (!$cart) {
-            $cart = DetailTransaksi::create([
-                'cart_id' => auth()->user()->id,
-                'barang_id' => $request->barang,
-                'quantity' => 1,
-                'jumlah' => 1 * $barang->harga,
-            ]);
-        } else {
-            $quantity = $cart->quantity + 1;
-            $cart->update([
-                'quantity' => $quantity,
-                'jumlah' => $quantity * $barang->harga,
-            ]);
-        }
-
-        $count = DetailTransaksi::whereNull('transaksi_id')->where('cart_id', auth()->user()->id)->count();
-
-        return $this->successResponse(compact('cart', 'count'), 'Data ditambahkan ke keranjang.');
-    }
-
-    public function index()
-    {
-        $transaksi = Transaksi::with('user')->where('user_id', auth()->user()->id)->latest()->get();
-        return view('pages.frontend.transaksi.index', compact('transaksi'));
+        return view('pages.frontend.transaksi.index');
     }
 
     public function store(Request $request)
@@ -117,4 +100,11 @@ class TransaksiController extends Controller
 
         return $this->successResponse($snapTokenData, 'Transaksi ditambahkan. Silahkan lakukan pembayaran.');
     }
+
+    public function show($id)
+    {
+        $transaksi = Transaksi::with('detailTransaksis', 'user')->where('user_id', auth()->user()->id)->findOrFail($id);
+        return view('pages.frontend.transaksi.show', compact('transaksi'));
+    }
+
 }

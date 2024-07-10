@@ -58,3 +58,26 @@ if (!function_exists('bulan')) {
         ];
     }
 }
+
+if (!function_exists('formatStatusLabel')) {
+    function formatStatusLabel($status)
+    {
+        $badgeClass = '';
+        switch ($status) {
+            case 'pending':
+                $badgeClass = 'badge bg-warning';
+                break;
+            case 'disetujui':
+                $badgeClass = 'badge bg-success';
+                break;
+            case 'ditolak':
+                $badgeClass = 'badge bg-danger';
+                break;
+            default:
+                $badgeClass = 'badge bg-secondary';
+                break;
+        }
+
+        return '<span class="' . $badgeClass . ' text-capitalize">' . $status . '</span>';
+    }
+}

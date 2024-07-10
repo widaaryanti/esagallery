@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\DetailTransaksi;
 use App\Models\Transaksi;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -45,5 +46,10 @@ class User extends Authenticatable
     public function transaksis()
     {
         return $this->hasMany(Transaksi::class);
+    }
+
+    public function carts()
+    {
+        return $this->hasMany(DetailTransaksi::class, 'cart_id', 'id');
     }
 }

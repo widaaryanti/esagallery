@@ -25,19 +25,22 @@
                         <span>Kategori</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->is('admin/barang') || request()->is('admin/barang/*')    ? 'active' : '' }}">
+                <li
+                    class="sidebar-item {{ request()->is('admin/barang') || request()->is('admin/barang/*') ? 'active' : '' }}">
                     <a href="{{ url('/admin/barang') }}" class='sidebar-link'>
                         <i class="bi bi-bag"></i>
                         <span>Barang</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->is('admin/galeri') || request()->is('admin/galeri/*')  ? 'active' : '' }}">
+                <li
+                    class="sidebar-item {{ request()->is('admin/galeri') || request()->is('admin/galeri/*') ? 'active' : '' }}">
                     <a href="{{ url('/admin/galeri') }}" class='sidebar-link'>
                         <i class="bi bi-images"></i>
                         <span>Galeri</span>
                     </a>
                 </li>
-                <li class="sidebar-item {{ request()->is('admin/transaksi') ? 'active' : '' }}">
+                <li
+                    class="sidebar-item {{ request()->is('admin/transaksi') || request()->is('admin/transaksi/*') ? 'active' : '' }}">
                     <a href="{{ url('/admin/transaksi') }}" class='sidebar-link'>
                         <i class="bi bi-cash"></i>
                         <span>Transaksi</span>

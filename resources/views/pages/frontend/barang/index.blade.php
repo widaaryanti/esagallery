@@ -74,7 +74,7 @@
                 },
                 success: function(data) {
                     $("#barang").html(data);
-                    initializeOwlCarousel(); // Reinitialize Owl Carousel after updating the gallery
+                    initializeOwlCarousel();
                 }
             });
         };

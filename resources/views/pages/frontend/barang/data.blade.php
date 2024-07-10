@@ -32,10 +32,15 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-between gap-2">
-                        <button onclick="addCart({{ $row->id }})" class="btn btn-success d-block w-100"><i
-                                class="bi bi-cart me-2"></i>Beli</button>
-                        <a href="/barang/{{ $row->id }}" class="btn btn-outline-info d-flex"><i
-                                class="bi bi-eye me-2"></i>Detail</a>
+                        @auth
+                            <button onclick="addCart({{ $row->id }})" class="btn btn-success d-block w-100"><i
+                                    class="bi bi-cart me-2"></i>Beli</button>
+                            <a href="/barang/{{ $row->id }}" class="btn btn-outline-info d-flex"><i
+                                    class="bi bi-eye me-2"></i>Detail</a>
+                        @else
+                            <a href="/barang/{{ $row->id }}" class="btn btn-outline-info d-block w-100"><i
+                                    class="bi bi-eye me-2"></i>Detail</a>
+                        @endauth
                     </div>
                 </div>
             </div>

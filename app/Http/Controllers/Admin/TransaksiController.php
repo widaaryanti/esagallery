@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use PDF;
-use Carbon\Carbon;
-use Midtrans\Config;
+use App\Http\Controllers\Controller;
 use App\Models\Transaksi;
 use App\Traits\ApiResponder;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Midtrans\Config;
+use PDF;
 use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiController extends Controller
@@ -34,8 +34,15 @@ class TransaksiController extends Controller
                     ->addColumn('customer', function ($transaksi) {
                         return $transaksi->user->nama;
                     })
+                    ->addColumn('status', function ($transaksi) {
+                        return formatStatusLabel($transaksi->status);
+                    })
+                    ->addColumn('aksi', function ($transaksi) {
+                        $detailButton = '<a class="btn btn-sm btn-info me-1 d-inline-flex" href="/admin/transaksi/' . $transaksi->id . '"><i class="bi bi-info-circle me-1"></i>Detail</a>';
+                        return $detailButton;
+                    })
                     ->addIndexColumn()
-                    ->rawColumns(['total', 'tanggal', 'customer'])
+                    ->rawColumns(['total', 'tanggal', 'customer', 'status', 'aksi'])
                     ->make(true);
             }
         }
@@ -66,16 +73,16 @@ class TransaksiController extends Controller
         Config::$isProduction = config('services.midtrans.isProduction');
         Config::$isSanitized = config('services.midtrans.isSanitized');
         Config::$is3ds = config('services.midtrans.is3ds');
-    
+
         $twentyFourHoursAgo = Carbon::now()->subHours(24);
-    
+
         $transactions = Transaksi::where('status', 'pending')
-                                 ->where('created_at', '>=', $twentyFourHoursAgo)
-                                 ->get();
-    
+            ->where('created_at', '>=', $twentyFourHoursAgo)
+            ->get();
+
         foreach ($transactions as $transaction) {
             $responseData = \Midtrans\Transaction::status($transaction->kode_transaksi);
-    
+
             if ($responseData['transaction_status'] == 'settlement') {
                 $transaction->update([
                     'status' => 'disetujui',
@@ -85,5 +92,11 @@ class TransaksiController extends Controller
 
         return $this->successResponse(null, 'Status transaksi diupdate.');
     }
-    
+
+    public function show($id)
+    {
+        $transaksi = Transaksi::with('detailTransaksis', 'user')->findOrFail($id);
+        return view('pages.admin.transaksi.show', compact('transaksi'));
+    }
+
 }

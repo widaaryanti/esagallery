@@ -12,6 +12,7 @@ use App\Http\Controllers\Admin\TransaksiController as AdminTransaksiController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BarangController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
@@ -28,15 +29,17 @@ Route::get('barang', [BarangController::class, 'index'])->name('barang');
 Route::get('barang/{id}', [BarangController::class, 'show']);
 Route::match(['get', 'post'], 'login', [AuthController::class, 'login'])->name('login');
 Route::match(['get', 'post'], 'register', [AuthController::class, 'register'])->name('register');
+Route::get('/forgot-password', [AuthController::class, 'forgotPassword'])->middleware('guest')->name('password.request');
+Route::post('/forgot-password', [AuthController::class, 'forgotPassword'])->middleware('guest')->name('password.email');
+Route::get('/reset-password/{token}', [AuthController::class, 'resetPassword'])->name('password.reset');
+Route::post('/reset-password', [AuthController::class, 'resetPassword'])->name('password.update');
 
 Route::middleware('auth')->group(function () {
     Route::match(['get', 'put'], 'profile', [ProfileController::class, 'index'])->name('profile');
     Route::put('profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password');
     Route::get('logout', [AuthController::class, 'logout'])->name('logout');
-    Route::get('cart', [TransaksiController::class, 'cart'])->name('cart');
-    Route::post('cart', [TransaksiController::class, 'addCart'])->name('cart');
-    Route::post('transaksi', [TransaksiController::class, 'store'])->name('transaksi');
-    Route::get('transaksi', [TransaksiController::class, 'index'])->name('transaksi');
+    Route::resource('transaksi', TransaksiController::class)->names('transaksi');
+    Route::resource('cart', CartController::class)->names('cart');
 });
 
 Route::middleware(['auth', 'checkRole:admin'])->prefix('admin')->name('admin.')->group(function () {
@@ -49,7 +52,6 @@ Route::middleware(['auth', 'checkRole:admin'])->prefix('admin')->name('admin.')-
     Route::resource('galeri-gambar', GaleriGambarController::class)->names('galeri-gambar');
     Route::post('transaksi/status', [AdminTransaksiController::class, 'updateStatus'])->name('transaksi.status');
     Route::resource('transaksi', AdminTransaksiController::class)->names('transaksi');
-
 
     Route::match(['get', 'put'], 'profile', [AdminProfileController::class, 'index'])->name('profile');
     Route::match(['get', 'put'], 'pengaturan', [PengaturanController::class, 'index'])->name('pengaturan');

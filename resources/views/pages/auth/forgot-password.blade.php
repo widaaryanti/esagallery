@@ -1,6 +1,6 @@
 @extends('layouts.auth')
 
-@section('title', 'Login')
+@section('title', 'Lupa Password')
 
 @push('style')
     <link rel="stylesheet" href="{{ asset('admin/extensions/sweetalert2/sweetalert2.min.css') }}">
@@ -14,27 +14,19 @@
                     <img src="{{ asset('logo.jpg') }}" class="img-fluid" width="200px" alt="Logo - {{ config('app.name') }}">
                 </div>
                 <h4 class="mb-3 text-center">@yield('title')</h4>
-                <form id="login" autocomplete="off">
+                <form id="forgot-password" autocomplete="off">
                     <div class="form-group mb-3">
                         <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
                         <input id="email" type="email" class="form-control" name="email">
                         <small class="invalid-feedback" id="erroremail"></small>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="password" class="form-label">Password <span class="text-danger">*</span></label>
-                        <input id="password" type="password" class="form-control" name="password">
-                        <small class="invalid-feedback" id="errorpassword"></small>
-                    </div>
-                    <div class="mb-3 text-end">
-                        <a href="{{ url('/forgot-password') }}">Lupa Password?</a>
-                    </div>
-                    <div class="form-group mb-3">
                         <button type="submit" class="btn btn-primary btn-block shadow-lg">Login</button>
                     </div>
                 </form>
                 <div class="text-center">
-                    Belum punya akun?
-                    <a href="{{ url('/register') }}">Register</a>
+                    Sudah punya akun?
+                    <a href="{{ url('/login') }}">Login</a>
                 </div>
             </div>
         </div>
@@ -45,20 +37,20 @@
     <script src="{{ asset('admin/extensions/sweetalert2/sweetalert2.min.js') }}"></script>
     <script>
         $(document).ready(function() {
-            $("#login").submit(function(e) {
-                setButtonLoadingState("#login .btn.btn-primary", true, "Login");
+            $("#forgot-password").submit(function(e) {
+                setButtonLoadingState("#forgot-password .btn.btn-primary", true, "Login");
                 e.preventDefault();
-                const url = "{{ route('login') }}";
+                const url = "{{ route('password.email') }}";
                 const data = new FormData(this);
 
                 const successCallback = function(response) {
-                    setButtonLoadingState("#login .btn.btn-primary", false, "Login");
-                    handleSuccess(response, null, null, "/admin/dashboard");
+                    setButtonLoadingState("#forgot-password .btn.btn-primary", false, "Lupa Password");
+                    handleSuccess(response, null, null, "/login");
                 };
 
                 const errorCallback = function(error) {
-                    setButtonLoadingState("#login .btn.btn-primary", false, "Login");
-                    handleValidationErrors(error, "login", ["email", "password"]);
+                    setButtonLoadingState("#forgot-password .btn.btn-primary", false, "Lupa Password");
+                    handleValidationErrors(error, "forgot-password", ["email"]);
                 };
 
                 ajaxCall(url, "POST", data, successCallback, errorCallback);

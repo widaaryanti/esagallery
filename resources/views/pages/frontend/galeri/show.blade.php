@@ -19,7 +19,7 @@
 @section('main')
 <header class="py-5 min-vh-100">
     <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center justify-content-center">
             <div class="col-md-7 mb-5">
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
@@ -43,7 +43,7 @@
                         <span class="visually-hidden">Next</span>
                     </a>
                 </div>
-            </div>            
+            </div>
             <div class="container">
                 <div class="card bg-light galeri-content">
                     <div class="card-body">

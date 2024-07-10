@@ -139,5 +139,56 @@
                 `/admin/transaksi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
             $("#downloadPdf").attr("href", downloadPdf);
         }
+
+        const confirmTransaction = (id) => {
+            Swal.fire({
+                title: 'Konfirmasi Transaksi',
+                text: 'Apakah anda yakin ingin mengkonfirmasi transaksi ini?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Setujui',
+                showDenyButton: true,
+                denyButtonColor: '#ffc107',
+                denyButtonText: 'Batalkan',
+                showCloseButton: true,
+                closeButtonAriaLabel: 'Batalkan'
+            }).then((result) => {
+                const kode = id;
+                const url = `/admin/transaksi/${kode}`;
+                const data = new FormData();
+                if (result.isConfirmed) {
+
+                    data.append("_method", "PUT");
+                    data.append("status", "disetujui");
+
+                    const successCallback = function(response) {
+                        handleSuccess(response, "transaksi-table");
+                    };
+
+                    const errorCallback = function(error) {
+                        handleValidationErrors(error, "transaksi-table");
+                    };
+
+                    ajaxCall(url, "POST", data, successCallback, errorCallback);
+                } else if (result.isDenied) {
+                    data.append("_method", "PUT");
+                    data.append("status", "ditolak");
+
+                    const successCallback = function(response) {
+                        handleSuccess(response, "transaksi-table");
+                    };
+
+                    const errorCallback = function(error) {
+                        handleValidationErrors(error, "transaksi-table");
+                    };
+
+                    ajaxCall(url, "POST", data, successCallback, errorCallback);
+                } else {
+                    Swal.close();
+                }
+            });
+        }
     </script>
 @endpush

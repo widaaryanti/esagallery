@@ -10,6 +10,7 @@ use App\Traits\ApiResponder;
 use Illuminate\Http\Request;
 use Midtrans\Config;
 use Midtrans\Snap;
+use PDF;
 use Yajra\DataTables\Facades\DataTables;
 
 class TransaksiController extends Controller
@@ -18,6 +19,9 @@ class TransaksiController extends Controller
 
     public function index(Request $request)
     {
+        $bulan = $request->bulan ?? date('m');
+        $tahun = $request->tahun ?? date('Y');
+
         $transaksis = Transaksi::with('user')->where('user_id', auth()->user()->id)->latest()->get();
         if ($request->ajax()) {
             if ($request->mode == "datatable") {
@@ -33,13 +37,36 @@ class TransaksiController extends Controller
                     })
                     ->addColumn('aksi', function ($transaksi) {
                         $detailButton = '<a class="btn btn-sm btn-info me-1 d-inline-flex" href="/transaksi/' . $transaksi->id . '"><i class="bi bi-info-circle me-1"></i>Detail</a>';
-                        return $detailButton;
+                        if ($transaksi->status == 'disetujui') {
+                            $cetakButton = '<a class="btn btn-sm btn-primary me-1 d-inline-flex" href="/transaksi/struk/' . $transaksi->id . '"><i class="bi bi-printer me-1"></i>Cetak</a>';
+                            return $detailButton . $cetakButton;
+                        } else {
+                            return $detailButton;
+                        }
                     })
                     ->addIndexColumn()
                     ->rawColumns(['total', 'tanggal', 'status', 'aksi'])
                     ->make(true);
             }
         }
+
+        if ($request->mode == "pdf") {
+            $bulanTahun = formatTanggal($tahun . "-" . $bulan . "-01", 'F Y');
+            $pdf = PDF::loadView('pages.admin.transaksi.pdf', ['transaksis' => $transaksis->where('status', 'disetujui'), 'bulanTahun' => $bulanTahun]);
+
+            $options = [
+                'margin_top' => 0,
+                'margin_right' => 0,
+                'margin_bottom' => 0,
+                'margin_left' => 0,
+            ];
+
+            $pdf->setOptions($options);
+            $pdf->setPaper('a4', 'landscape');
+
+            return $pdf->stream('Laporan Transaksi ' . $bulanTahun . '.pdf');
+        }
+
         return view('pages.frontend.transaksi.index');
     }
 
@@ -105,6 +132,23 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::with('detailTransaksis', 'user')->where('user_id', auth()->user()->id)->findOrFail($id);
         return view('pages.frontend.transaksi.show', compact('transaksi'));
+    }
+
+    public function struk($id)
+    {
+        $transaksi = Transaksi::with('detailTransaksis', 'user')->where('status', 'disetujui')->findOrFail($id);
+        $pdf = PDF::loadView('pages.admin.transaksi.struk', compact('transaksi'));
+        $options = [
+            'margin_top' => 0,
+            'margin_right' => 0,
+            'margin_bottom' => 0,
+            'margin_left' => 0,
+        ];
+
+        $pdf->setOptions($options);
+        $pdf->setPaper('a4', 'potrait');
+
+        return $pdf->stream('Laporan Transaksi ' . $transaksi->kode_transaksi . '.pdf');
     }
 
 }

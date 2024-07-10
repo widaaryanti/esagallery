@@ -51,10 +51,10 @@
                                         : {{ $transaksi->kode_transaksi }}
                                     </div>
                                     <div class="col-4 mb-2">
-                                        Status
+                                        Customer
                                     </div>
                                     <div class="col-6 mb-2">
-                                        : {!! formatStatusLabel($transaksi->status) !!}
+                                        : {{ $transaksi->user->nama }}
                                     </div>
                                     <div class="col-4 mb-2">
                                         Total
@@ -63,10 +63,10 @@
                                         : {{ formatRupiah($transaksi->total) }}
                                     </div>
                                     <div class="col-4 mb-2">
-                                        Customer
+                                        Status
                                     </div>
                                     <div class="col-6 mb-2">
-                                        : {{ $transaksi->user->nama }}
+                                        : {!! formatStatusLabel($transaksi->status) !!}
                                     </div>
                                 </div>
                             </div>

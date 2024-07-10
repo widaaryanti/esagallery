@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Transaksi;
 use App\Traits\ApiResponder;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Midtrans\Config;
+use Midtrans\Transaction;
 use PDF;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -39,7 +39,15 @@ class TransaksiController extends Controller
                     })
                     ->addColumn('aksi', function ($transaksi) {
                         $detailButton = '<a class="btn btn-sm btn-info me-1 d-inline-flex" href="/admin/transaksi/' . $transaksi->id . '"><i class="bi bi-info-circle me-1"></i>Detail</a>';
-                        return $detailButton;
+                        if ($transaksi->status == 'pending') {
+                            $confirmationButton = '<button class="btn btn-sm btn-success d-inline-flex" onclick="confirmTransaction(`' . $transaksi->id . '`)"><i class="bi bi-check-circle me-1"></i>Konfirmasi</button>';
+                            return $detailButton . $confirmationButton;
+                        } elseif ($transaksi->status == 'disetujui') {
+                            $cetakButton = '<a class="btn btn-sm btn-primary me-1 d-inline-flex" href="/admin/transaksi/struk/' . $transaksi->id . '"><i class="bi bi-printer me-1"></i>Cetak</a>';
+                            return $detailButton . $cetakButton;
+                        } else {
+                            return $detailButton;
+                        }
                     })
                     ->addIndexColumn()
                     ->rawColumns(['total', 'tanggal', 'customer', 'status', 'aksi'])
@@ -49,7 +57,7 @@ class TransaksiController extends Controller
 
         if ($request->mode == "pdf") {
             $bulanTahun = formatTanggal($tahun . "-" . $bulan . "-01", 'F Y');
-            $pdf = PDF::loadView('pages.admin.transaksi.pdf', ['transaksis' => $transaksis, 'bulanTahun' => $bulanTahun]);
+            $pdf = PDF::loadView('pages.admin.transaksi.pdf', ['transaksis' => $transaksis->where('status', 'disetujui'), 'bulanTahun' => $bulanTahun]);
 
             $options = [
                 'margin_top' => 0,
@@ -67,36 +75,66 @@ class TransaksiController extends Controller
         return view('pages.admin.transaksi.index');
     }
 
-    public function updateStatus(Request $request)
+    public function update(Request $request, $id)
     {
         Config::$serverKey = config('services.midtrans.serverKey');
         Config::$isProduction = config('services.midtrans.isProduction');
         Config::$isSanitized = config('services.midtrans.isSanitized');
         Config::$is3ds = config('services.midtrans.is3ds');
 
-        $twentyFourHoursAgo = Carbon::now()->subHours(24);
+        $transaksi = Transaksi::find($id);
 
-        $transactions = Transaksi::where('status', 'pending')
-            ->where('created_at', '>=', $twentyFourHoursAgo)
-            ->get();
+        if (!$transaksi) {
+            return $this->errorResponse(null, 'Transaksi tidak ditemukan.', 404);
+        }
+        if ($request->status == 'disetujui') {
+            try {
+                $responseData = Transaction::status($transaksi->kode_transaksi);
 
-        foreach ($transactions as $transaction) {
-            $responseData = \Midtrans\Transaction::status($transaction->kode_transaksi);
-
-            if ($responseData['transaction_status'] == 'settlement') {
-                $transaction->update([
-                    'status' => 'disetujui',
+                if ($responseData->transaction_status == 'settlement') {
+                    $transaksi->update([
+                        'status' => 'disetujui',
+                    ]);
+                } else {
+                    $transaksi->update([
+                        'status' => 'ditolak',
+                    ]);
+                }
+            } catch (\Exception $e) {
+                $transaksi->update([
+                    'status' => 'ditolak',
                 ]);
             }
+        } elseif ($request->status == 'ditolak') {
+            $transaksi->update([
+                'status' => 'ditolak',
+            ]);
         }
 
-        return $this->successResponse(null, 'Status transaksi diupdate.');
+        return $this->successResponse($transaksi, 'Status transaksi diupdate.');
     }
 
     public function show($id)
     {
         $transaksi = Transaksi::with('detailTransaksis', 'user')->findOrFail($id);
         return view('pages.admin.transaksi.show', compact('transaksi'));
+    }
+
+    public function struk($id)
+    {
+        $transaksi = Transaksi::with('detailTransaksis', 'user')->where('status', 'disetujui')->findOrFail($id);
+        $pdf = PDF::loadView('pages.admin.transaksi.struk', compact('transaksi'));
+        $options = [
+            'margin_top' => 0,
+            'margin_right' => 0,
+            'margin_bottom' => 0,
+            'margin_left' => 0,
+        ];
+
+        $pdf->setOptions($options);
+        $pdf->setPaper('a4', 'potrait');
+
+        return $pdf->stream('Laporan Transaksi ' . $transaksi->kode_transaksi . '.pdf');
     }
 
 }

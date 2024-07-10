@@ -15,26 +15,57 @@
                 <div class="col-12 mb-3">
                     <div class="card mb-3">
                         <div class="card-body">
-                            <h5 class="text-dark mb-3">Data @yield('title')</h5>
-                            <hr>
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered" id="transaksi-table" width="100%">
-                                    <thead>
-                                        <tr class="text-center bg-esa-secondary text-white">
-                                            <th width="5%">#</th>
-                                            <th>Tanggal</th>
-                                            <th>Kode Trasansksi</th>
-                                            <th>Status</th>
-                                            <th>Total</th>
-                                            <th width="15%">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <h5 class="card-title mb-0">Data @yield('title')</h5>
+                                <div>
+                                    <a id="downloadPdf" class="btn btn-sm btn-danger" target="_blank"><i
+                                            class="bi bi-file-pdf me-2"></i>Laporan</a>
+                                </div>
                             </div>
+                            <hr>
+                            <div class="row mb-3">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="bulan_filter" class="form-label">Bulan</label>
+                                        <select name="bulan_filter" id="bulan_filter" class="form-control">
+                                            @foreach (bulan() as $key => $value)
+                                                <option value="{{ $key + 1 }}"
+                                                    {{ $key + 1 == date('m') ? 'selected' : '' }}>
+                                                    {{ $value }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="tahun_filter" class="form-label">Tahun</label>
+                                        <select name="tahun_filter" id="tahun_filter" class="form-control">
+                                            @for ($i = now()->year; $i >= now()->year - 4; $i--)
+                                                <option value="{{ $i }}" {{ $i == date('Y') ? 'selected' : '' }}>
+                                                    {{ $i }}
+                                                </option>
+                                            @endfor
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <table class="table table-striped table-bordered" id="transaksi-table" width="100%">
+                                <thead>
+                                    <tr class="text-center bg-esa-secondary text-white">
+                                        <th width="5%">#</th>
+                                        <th>Tanggal</th>
+                                        <th>Kode Trasansksi</th>
+                                        <th>Status</th>
+                                        <th>Total</th>
+                                        <th width="15%">Aksi</th>
+                                    </tr>
+                                </thead>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         </div>
     </header>
 @endsection
@@ -45,6 +76,8 @@
     <script src="{{ asset('admin/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js') }}"></script>
     <script>
         $(document).ready(function() {
+            renderData();
+
             datatableCall('transaksi-table', '{{ route('transaksi.index') }}', [{
                     data: 'DT_RowIndex',
                     name: 'DT_RowIndex'
@@ -70,6 +103,16 @@
                     name: 'aksi'
                 }
             ]);
+
+            $("#bulan_filter, #tahun_filter").on("change", function() {
+                renderData();
+            });
         });
+
+        const renderData = () => {
+            const downloadPdf =
+                `/transaksi?mode=pdf&bulan=${$("#bulan_filter").val()}&tahun=${$("#tahun_filter").val()}`;
+            $("#downloadPdf").attr("href", downloadPdf);
+        }
     </script>
 @endpush

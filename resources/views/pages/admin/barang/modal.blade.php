@@ -26,11 +26,6 @@
                         <small class="invalid-feedback" id="errorkategori_id"></small>
                     </div>
                     <div class="form-group mb-3">
-                        <label for="stok" class="form-label">Stok <span class="text-danger">*</span></label>
-                        <input type="number" class="form-control" id="stok" name="stok">
-                        <small class="invalid-feedback" id="errorstok"></small>
-                    </div>
-                    <div class="form-group mb-3">
                         <label for="harga" class="form-label">Harga <span class="text-danger">*</span></label>
                         <input type="number" class="form-control" id="harga" name="harga">
                         <small class="invalid-feedback" id="errorharga"></small>

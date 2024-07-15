@@ -32,7 +32,6 @@
                     <h2 class="fw-bold text-esa-secondary mb-3">{{ $barang->nama }}</h2>
                     <p>{{ $barang->deskripsi }}</p>
                     <small class="d-block mb-2">Harga : {{ formatRupiah($barang->harga) }}</small>
-                    <small class="d-block mb-2">Stok : {{ $barang->stok }}</small>
                     <button onclick="addCart({{ $barang->id }})" class="btn btn-success d-block"><i
                             class="bi bi-cart me-2"></i>Beli</button>
                 </div>

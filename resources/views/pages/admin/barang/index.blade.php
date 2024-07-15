@@ -48,7 +48,6 @@
                                             <th width="5%">#</th>
                                             <th>Nama</th>
                                             <th>Kategori</th>
-                                            <th>Stok</th>
                                             <th>Harga</th>
                                             <th>Deskripsi</th>
                                             <th width="15%">Aksi</th>
@@ -84,10 +83,6 @@
                 {
                     data: 'kategori',
                     name: 'kategori'
-                },
-                {
-                    data: 'stok',
-                    name: 'stok'
                 },
                 {
                     data: 'harga',

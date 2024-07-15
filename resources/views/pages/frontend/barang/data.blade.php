@@ -26,10 +26,6 @@
                                 <small>Kategori : {{ $row->kategori->nama }}</small>
                             </div>
                         </div>
-                        <div class="text-center">
-                            <div>Stok</div>
-                            <div>{{ $row->stok }}</div>
-                        </div>
                     </div>
                     <div class="d-flex justify-content-between gap-2">
                         @auth

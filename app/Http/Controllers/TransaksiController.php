@@ -22,7 +22,7 @@ class TransaksiController extends Controller
         $bulan = $request->bulan ?? date('m');
         $tahun = $request->tahun ?? date('Y');
 
-        $transaksis = Transaksi::with('user')->where('user_id', auth()->user()->id)->latest()->get();
+        $transaksis = Transaksi::with('user')->whereMonth('created_at', $bulan)->whereYear('created_at', $tahun)->where('user_id', auth()->user()->id)->latest()->get();
         if ($request->ajax()) {
             if ($request->mode == "datatable") {
                 return DataTables::of($transaksis)

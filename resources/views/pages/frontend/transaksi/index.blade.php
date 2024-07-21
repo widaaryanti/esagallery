@@ -49,23 +49,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <table class="table table-striped table-bordered" id="transaksi-table" width="100%">
-                                <thead>
-                                    <tr class="text-center bg-esa-secondary text-white">
-                                        <th width="5%">#</th>
-                                        <th>Tanggal</th>
-                                        <th>Kode Trasansksi</th>
-                                        <th>Status</th>
-                                        <th>Total</th>
-                                        <th width="15%">Aksi</th>
-                                    </tr>
-                                </thead>
-                            </table>
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered" id="transaksi-table" width="100%">
+                                    <thead>
+                                        <tr class="text-center bg-esa-secondary text-white">
+                                            <th width="5%">#</th>
+                                            <th>Tanggal</th>
+                                            <th>Kode Trasansksi</th>
+                                            <th>Status</th>
+                                            <th>Total</th>
+                                            <th width="15%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </header>
 @endsection

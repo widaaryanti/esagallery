@@ -49,7 +49,9 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div id="chart-transaksi"></div>
+                    <div class="card card-body">
+                        <div id="chart-transaksi"></div>
+                    </div>
                 </div>
             </section>
         </div>

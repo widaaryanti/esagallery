@@ -48,10 +48,45 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-12">
+                    <div id="chart-transaksi"></div>
+                </div>
             </section>
         </div>
     </div>
 @endsection
 
 @push('scripts')
+    <script src="{{ asset('admin/extensions/apexcharts/apexcharts.min.js') }}"></script>
+    <script>
+        $(document).ready(function() {
+            renderChart();
+        });
+
+        const renderChart = (labels, transaksi) => {
+
+            const options = {
+                chart: {
+                    type: "line",
+                    height: 350,
+                },
+                series: [{
+                    name: "Transaksi",
+                    data: @json($transaksi['data']),
+                }, ],
+                xaxis: {
+                    categories: @json($transaksi['labels']),
+                },
+                title: {
+                    text: "Grafik Transaksi Tahun {{ date('Y') }}",
+                },
+            };
+
+            const chart = new ApexCharts(
+                document.querySelector("#chart-transaksi"),
+                options
+            );
+            chart.render();
+        };
+    </script>
 @endpush

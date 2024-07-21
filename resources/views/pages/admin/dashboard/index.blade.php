@@ -12,7 +12,7 @@
         </div>
         <div class="page-content">
             <section class="row">
-                <div class="col-6 col-lg-4">
+                <div class="col-6 col-lg-3">
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="bi bi-people text-success fs-1 mb-4"></i>
@@ -21,7 +21,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-4">
+                <div class="col-6 col-lg-3">
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="bi bi-bookmark text-info fs-1 mb-4"></i>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-4">
+                <div class="col-6 col-lg-3">
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="bi bi-bag text-warning fs-1 mb-4"></i>
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-4">
+                <div class="col-6 col-lg-3">
                     <div class="card">
                         <div class="card-body text-center">
                             <i class="bi bi-images text-primary fs-1 mb-4"></i>

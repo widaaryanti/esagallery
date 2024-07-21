@@ -30,10 +30,7 @@
             </div>
             <div class="col-lg-4 mb-3">
                 <h5 class="fw-bold text-ajl-secondary mb-3">Map</h5>
-                <iframe
-                    src="https://www.bing.com/ck/a?!&&p=d0ec3f1ef314fd2aJmltdHM9MTcxOTYxOTIwMCZpZ3VpZD0wNDBkZTJhZi1kYTQ2LTZjZjktMmNkZC1mNjBiZGIxMDZkZDYmaW5zaWQ9NTc2OQ&ptn=3&ver=2&hsh=3&fclid=040de2af-da46-6cf9-2cdd-f60bdb106dd6&u=a1L21hcHM_Jm1lcGk9MjN-flRvcE9mUGFnZX5NYXBfSW1hZ2UmdHk9MTgmcT1KYWxhbiUyME5hc2lvbmFsJTIwMyUyQyUyMEtlY2FtYXRhbiUyMFNpbmRhbmdrYXNpaCUyQyUyMENpYW1pcyUyMFJlZ2VuY3klMkMlMjBXZXN0JTIwSmF2YSUyMDQ2MjY4JnBwb2lzPS03LjI4MzE2OTE0MDQ2MzhfMTA4LjIxOTA0MjU5NDczM19KYWxhbiUyME5hc2lvbmFsJTIwMyUyQyUyMEtlY2FtYXRhbiUyMFNpbmRhbmdrYXNpaCUyQyUyMENpYW1pcyUyMFJlZ2VuY3klMkMlMjBXZXN0JTIwSmF2YSUyMDQ2MjY4X34mY3A9LTcuMjgzMTY5fjEwOC4yMTkwNDMmbHZsPTE2JnY9MiZzVj0xJkZPUk09TUlSRQ&ntb=1"
-                    width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.2301657818502!2d108.22444907412564!3d-7.3280259926802795!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6f575ac796e5bd%3A0x1266496f1d655684!2sUniversitas%20BSI%20Kampus%20Tasikmalaya!5e0!3m2!1sid!2sid!4v1721540388121!5m2!1sid!2sid"  width="100%" height="200" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
         </div>
     </div>

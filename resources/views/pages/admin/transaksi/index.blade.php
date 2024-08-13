@@ -130,6 +130,7 @@
             ]);
 
             $("#bulan_filter, #tahun_filter").on("change", function() {
+                $("#transaksi-table").DataTable().ajax.reload();
                 renderData();
             });
         });
